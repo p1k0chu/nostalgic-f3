@@ -18,7 +18,7 @@ import java.util.Locale;
 public class DebugEntryPositionMixin {
     /// because I got rid of groups, I add newline manually here.
     /// groups are no more, because they are bad (opinionated, there's a group with just two lines)
-    @Inject(method = "display", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/debug/DebugScreenDisplayer;addToGroup(Lnet/minecraft/resources/Identifier;Ljava/util/Collection;)V"))
+    @Inject(method = "display", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/debug/DebugScreenDisplayer;addToGroup(Lnet/minecraft/resources/ResourceLocation;Ljava/util/Collection;)V"))
     void addNewlineBefore(DebugScreenDisplayer debugScreenDisplayer, Level level, LevelChunk levelChunk, LevelChunk levelChunk2, CallbackInfo ci) {
         debugScreenDisplayer.addLine("");
     }

@@ -19,9 +19,9 @@ public class GameRendererMixin {
     @Final
     private Minecraft minecraft;
 
-    @WrapOperation(method = "render", at = @At(value = "NEW", target = "(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/render/state/GuiRenderState;II)Lnet/minecraft/client/gui/GuiGraphics;"))
-    GuiGraphics renderDebugBeforeGui(Minecraft minecraft, GuiRenderState guiRenderState, int i, int j, Operation<GuiGraphics> original) {
-        var graphics = original.call(minecraft, guiRenderState, i, j);
+    @WrapOperation(method = "render", at = @At(value = "NEW", target = "(Lnet/minecraft/client/Minecraft;Lnet/minecraft/client/gui/render/state/GuiRenderState;)Lnet/minecraft/client/gui/GuiGraphics;"))
+    GuiGraphics renderDebugBeforeGui(Minecraft minecraft, GuiRenderState guiRenderState, Operation<GuiGraphics> original) {
+        var graphics = original.call(minecraft, guiRenderState);
         if (!(this.minecraft.screen instanceof DebugOptionsScreen)) {
             this.minecraft.gui.renderDebugOverlay(graphics);
         }

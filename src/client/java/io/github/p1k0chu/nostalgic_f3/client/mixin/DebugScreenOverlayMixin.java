@@ -6,7 +6,7 @@ import io.github.p1k0chu.nostalgic_f3.client.SidedDebugScreenDisplayer;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.DebugScreenOverlay;
 import net.minecraft.client.gui.components.debug.DebugScreenDisplayer;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,7 +21,7 @@ import java.util.Map;
 @Mixin(DebugScreenOverlay.class)
 public class DebugScreenOverlayMixin {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/debug/DebugScreenEntry;display(Lnet/minecraft/client/gui/components/debug/DebugScreenDisplayer;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/level/chunk/LevelChunk;Lnet/minecraft/world/level/chunk/LevelChunk;)V"))
-    void setSide(GuiGraphics guiGraphics, CallbackInfo ci, @Local Identifier identifier, @Local DebugScreenDisplayer displayer) {
+    void setSide(GuiGraphics guiGraphics, CallbackInfo ci, @Local ResourceLocation identifier, @Local DebugScreenDisplayer displayer) {
         ((SidedDebugScreenDisplayer) displayer).nostalgic_f3$setSide(DebugScreenEntriesSides.getSide(identifier));
     }
 
@@ -31,7 +31,7 @@ public class DebugScreenOverlayMixin {
     }
 
     @Inject(method = "render", at = @At(value = "NEW", target = "(Ljava/util/Collection;)Ljava/util/ArrayList;"))
-    void groupsGoToTheRight(GuiGraphics guiGraphics, CallbackInfo ci, @Local Map<Identifier, Collection<String>> map, @Local(ordinal = 1) List<String> right) {
+    void groupsGoToTheRight(GuiGraphics guiGraphics, CallbackInfo ci, @Local Map<ResourceLocation, Collection<String>> map, @Local(ordinal = 1) List<String> right) {
         map.forEach((id, strings) -> {
             right.addAll(strings);
             right.add("");

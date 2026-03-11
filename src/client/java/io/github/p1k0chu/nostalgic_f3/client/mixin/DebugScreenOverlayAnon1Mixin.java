@@ -3,8 +3,8 @@ package io.github.p1k0chu.nostalgic_f3.client.mixin;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import io.github.p1k0chu.nostalgic_f3.client.SidedDebugScreenDisplayer;
-import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.Nullable;
+import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
 
 import java.util.Collection;
@@ -40,16 +40,16 @@ public abstract class DebugScreenOverlayAnon1Mixin implements SidedDebugScreenDi
         }
     }
 
-    @WrapMethod(method = "addToGroup(Lnet/minecraft/resources/Identifier;Ljava/lang/String;)V")
-    void addToGroup(Identifier identifier, String string, Operation<Void> original) {
+    @WrapMethod(method = "addToGroup(Lnet/minecraft/resources/ResourceLocation;Ljava/lang/String;)V")
+    void addToGroup(ResourceLocation identifier, String string, Operation<Void> original) {
         switch (this.side) {
             case LEFT -> val$leftLines.add(string);
             case null, default -> original.call(identifier, string);
         }
     }
 
-    @WrapMethod(method = "addToGroup(Lnet/minecraft/resources/Identifier;Ljava/util/Collection;)V")
-    void addToGroup(Identifier identifier, Collection<String> collection, Operation<Void> original) {
+    @WrapMethod(method = "addToGroup(Lnet/minecraft/resources/ResourceLocation;Ljava/util/Collection;)V")
+    void addToGroup(ResourceLocation identifier, Collection<String> collection, Operation<Void> original) {
         switch (this.side) {
             case LEFT -> val$leftLines.addAll(collection);
             case null, default -> original.call(identifier, collection);
