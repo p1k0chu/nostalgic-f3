@@ -1,14 +1,13 @@
 {
   "required": true,
   "package": "io.github.p1k0chu.nostalgic_f3.client.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "client": [
     "DebugEntryPositionMixin",
     "DebugScreenEntryListMixin",
     "DebugScreenOverlayAnon1Mixin",
     "DebugScreenOverlayMixin",
-    "GameRendererMixin",
-    "LevelRendererMixin"
+    "GameRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

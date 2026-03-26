@@ -6,7 +6,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.debug.DebugOptionsScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import org.spongepowered.asm.mixin.Final;
@@ -22,15 +22,15 @@ public class GameRendererMixin {
     @Final
     private Minecraft minecraft;
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;getOverlay()Lnet/minecraft/client/gui/screens/Overlay;"))
-    void renderDebugBeforeGui(DeltaTracker deltaTracker, boolean bl, CallbackInfo ci, @Local GuiGraphics graphics) {
+    @Inject(method = "extractGui", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;getOverlay()Lnet/minecraft/client/gui/screens/Overlay;", ordinal = 0))
+    void renderDebugBeforeGui(DeltaTracker deltaTracker, boolean shouldRenderLevel, boolean resourcesLoaded, CallbackInfo ci, @Local(name = "graphics") GuiGraphicsExtractor graphics) {
         if (!(this.minecraft.screen instanceof DebugOptionsScreen)) {
-            this.minecraft.gui.renderDebugOverlay(graphics);
+            this.minecraft.gui.extractDebugOverlay(graphics);
         }
     }
 
-    @WrapOperation(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderDebugOverlay(Lnet/minecraft/client/gui/GuiGraphics;)V"))
-    void cancelOgDebugRender(Gui instance, GuiGraphics guiGraphics, Operation<Void> original) {
+    @WrapOperation(method = "extractGui", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;extractDebugOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V"))
+    void cancelOgDebugRender(Gui instance, GuiGraphicsExtractor graphics, Operation<Void> original) {
         // not calling original intentionally. too bad!
     }
 }

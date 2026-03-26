@@ -1,5 +1,5 @@
 plugins {
-    id("fabric-loom") version "1.14-SNAPSHOT"
+    id("net.fabricmc.fabric-loom") version "1.15-SNAPSHOT"
     id("com.modrinth.minotaur") version "2.+"
 }
 
@@ -17,8 +17,7 @@ base {
 
 dependencies {
     minecraft("com.mojang:minecraft:${minecraftVersion}")
-    mappings(loom.officialMojangMappings())
-    modImplementation("net.fabricmc:fabric-loader:${loaderVersion}")
+    implementation("net.fabricmc:fabric-loader:${loaderVersion}")
 }
 
 tasks.processResources {
@@ -50,7 +49,7 @@ java {
     withSourcesJar()
 
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
@@ -69,7 +68,7 @@ modrinth {
     versionType = "release" // `release`, `beta` or `alpha`
     gameVersions.add(minecraftVersion)
 
-    uploadFile.set(tasks.remapJar)
+    uploadFile.set(tasks.jar)
     loaders.add("fabric")
 }
 
