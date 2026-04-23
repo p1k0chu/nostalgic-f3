@@ -4,8 +4,10 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import io.github.p1k0chu.nostalgic_f3.client.SidedDebugScreenDisplayer;
 import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
+
+//$ NullableImport
+import org.jspecify.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;

@@ -22,14 +22,29 @@ public class GameRendererMixin {
     @Final
     private Minecraft minecraft;
 
-    @Inject(method = "extractGui", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;getOverlay()Lnet/minecraft/client/gui/screens/Overlay;", ordinal = 0))
-    void renderDebugBeforeGui(DeltaTracker deltaTracker, boolean shouldRenderLevel, boolean resourcesLoaded, CallbackInfo ci, @Local(name = "graphics") GuiGraphicsExtractor graphics) {
+    @Inject(method = /*$ extractGuiStr >> ','*/"extractGui", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;getOverlay()Lnet/minecraft/client/gui/screens/Overlay;", ordinal = 0))
+    void renderDebugBeforeGui(
+            DeltaTracker deltaTracker,
+            boolean shouldRenderLevel,
+            /*? >=26.1 */boolean resourcesLoaded,
+            CallbackInfo ci,
+            @Local/*? >26.1 >>+ ')'*//*(name = "graphics")*/ GuiGraphicsExtractor graphics
+    ) {
         if (!(this.minecraft.screen instanceof DebugOptionsScreen)) {
+            //? if <26.1 {
+            /*this.minecraft.gui.renderDebugOverlay(graphics);
+            *///? } else
             this.minecraft.gui.extractDebugOverlay(graphics);
         }
     }
 
-    @WrapOperation(method = "extractGui", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;extractDebugOverlay(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V"))
+    @WrapOperation(
+            method = /*$ extractGuiStr >> ','*/"extractGui",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/Gui;" + /*$ extractDebugOverlayStr >> '+'*/"extractDebugOverlay"+ "(Lnet/minecraft/client/gui/GuiGraphicsExtractor;)V"
+            )
+    )
     void cancelOgDebugRender(Gui instance, GuiGraphicsExtractor graphics, Operation<Void> original) {
         // not calling original intentionally. too bad!
     }

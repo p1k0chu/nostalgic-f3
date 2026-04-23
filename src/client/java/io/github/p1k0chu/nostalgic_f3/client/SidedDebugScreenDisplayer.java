@@ -1,6 +1,8 @@
 package io.github.p1k0chu.nostalgic_f3.client;
 
 import net.minecraft.client.gui.components.debug.DebugScreenDisplayer;
+
+//$ NullableImport
 import org.jspecify.annotations.Nullable;
 
 public interface SidedDebugScreenDisplayer extends DebugScreenDisplayer {

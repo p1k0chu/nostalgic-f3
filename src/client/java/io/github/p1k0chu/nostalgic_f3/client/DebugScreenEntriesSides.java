@@ -1,6 +1,8 @@
 package io.github.p1k0chu.nostalgic_f3.client;
 
 import net.minecraft.resources.Identifier;
+
+//$ NullableImport
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
