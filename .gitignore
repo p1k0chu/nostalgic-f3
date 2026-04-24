@@ -48,3 +48,4 @@ replay_pid*
 
 # Avoid ignore Gradle wrappper properties
 !gradle-wrapper.properties
+/.env
