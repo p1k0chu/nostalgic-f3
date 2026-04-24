@@ -29,12 +29,12 @@ class LevelRendererMixin {
     private int eCounter;
 
     @Inject(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/state/LevelRenderState;reset()V"))
-    void saveECounter(GraphicsResourceAllocator graphicsResourceAllocator, DeltaTracker deltaTracker, boolean bl, Camera camera, Matrix4f matrix4f, Matrix4f matrix4f2, Matrix4f matrix4f3, GpuBufferSlice gpuBufferSlice, Vector4f vector4f, boolean bl2, CallbackInfo ci) {
+    private void saveECounter(GraphicsResourceAllocator graphicsResourceAllocator, DeltaTracker deltaTracker, boolean bl, Camera camera, Matrix4f matrix4f, Matrix4f matrix4f2, Matrix4f matrix4f3, GpuBufferSlice gpuBufferSlice, Vector4f vector4f, boolean bl2, CallbackInfo ci) {
         eCounter = levelRenderState.entityRenderStates.size();
     }
 
     @Redirect(method = "getEntityStatistics", at = @At(value = "INVOKE", target = "Ljava/util/List;size()I"))
-    int useECounter(List<?> instance) {
+    private int useECounter(List<?> instance) {
         return eCounter;
     }
     *///? }

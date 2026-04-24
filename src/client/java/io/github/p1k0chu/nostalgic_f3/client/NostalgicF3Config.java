@@ -30,6 +30,14 @@ public class NostalgicF3Config {
     @SerialEntry
     private boolean useOldSectionRelativePos = true;
 
+    @SerialEntry
+    private boolean hideOverlayWhenF1 = false;
+
+    //? >=26.1 {
+    @SerialEntry
+    private boolean addDayCounterToLocalDifficulty = false;
+    //? }
+
     public Screen makeScreen(@Nullable Screen parent) {
         return YetAnotherConfigLib.createBuilder()
                 .title(Component.literal("Nostalgic f3 config"))
@@ -55,6 +63,32 @@ public class NostalgicF3Config {
                                                 .controller(TickBoxControllerBuilder::create)
                                                 .build()
                                 )
+                                .option(
+                                        Option.<Boolean>createBuilder()
+                                                .name(Component.literal("Hide overlay when F1"))
+                                                .description(OptionDescription.of(Component.literal("When HUD is hidden and set to True, hides the overlay even when a menu is open.")))
+                                                .binding(
+                                                        false,
+                                                        this::isHideOverlayWhenF1,
+                                                        this::setHideOverlayWhenF1
+                                                )
+                                                .controller(TickBoxControllerBuilder::create)
+                                                .build()
+                                )
+                                //? >=26.1 {
+                                .option(
+                                        Option.<Boolean>createBuilder()
+                                                .name(Component.literal("Day counter"))
+                                                .description(OptionDescription.of(Component.literal("Add day counter to local difficulty line")))
+                                                .binding(
+                                                        false,
+                                                        this::isAddDayCounterToLocalDifficulty,
+                                                        this::setAddDayCounterToLocalDifficulty
+                                                )
+                                                .controller(TickBoxControllerBuilder::create)
+                                                .build()
+                                )
+                                //? }
                                 .build()
                 )
                 .save(HANDLER::save)
@@ -73,4 +107,22 @@ public class NostalgicF3Config {
     public static NostalgicF3Config getInstance() {
         return HANDLER.instance();
     }
+
+    public boolean isHideOverlayWhenF1() {
+        return hideOverlayWhenF1;
+    }
+
+    public void setHideOverlayWhenF1(boolean hideOverlayWhenF1) {
+        this.hideOverlayWhenF1 = hideOverlayWhenF1;
+    }
+
+    //? >=26.1 {
+    public boolean isAddDayCounterToLocalDifficulty() {
+        return addDayCounterToLocalDifficulty;
+    }
+
+    public void setAddDayCounterToLocalDifficulty(boolean addDayCounterToLocalDifficulty) {
+        this.addDayCounterToLocalDifficulty = addDayCounterToLocalDifficulty;
+    }
+    //? }
 }

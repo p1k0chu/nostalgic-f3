@@ -1,8 +1,8 @@
 {
   "required": true,
   "package": "io.github.p1k0chu.nostalgic_f3.client.mixin",
-  "compatibilityLevel": "JAVA_25",
   "client": [
+    "DebugEntryLocalDifficultyMixin",
     "DebugEntryPositionMixin",
     "DebugScreenEntryListMixin",
     "DebugScreenOverlayAnon1Mixin",

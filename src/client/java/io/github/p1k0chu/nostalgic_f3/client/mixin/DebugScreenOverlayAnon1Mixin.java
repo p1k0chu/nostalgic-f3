@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Mixin(targets = "net.minecraft.client.gui.components.DebugScreenOverlay$1")
-public abstract class DebugScreenOverlayAnon1Mixin implements SidedDebugScreenDisplayer {
+abstract class DebugScreenOverlayAnon1Mixin implements SidedDebugScreenDisplayer {
     @Shadow
     @Final
     List<String> val$leftLines;
@@ -25,7 +25,7 @@ public abstract class DebugScreenOverlayAnon1Mixin implements SidedDebugScreenDi
     private Side side = null;
 
     @WrapMethod(method = "addPriorityLine")
-    void addPriorityLine(String string, Operation<Void> original) {
+    private void addPriorityLine(String string, Operation<Void> original) {
         switch (this.side) {
             case LEFT -> val$leftLines.add(string);
             case RIGHT -> val$rightLines.add(string);
@@ -34,7 +34,7 @@ public abstract class DebugScreenOverlayAnon1Mixin implements SidedDebugScreenDi
     }
 
     @WrapMethod(method = "addLine")
-    void addLine(String string, Operation<Void> original) {
+    private void addLine(String string, Operation<Void> original) {
         switch (this.side) {
             case LEFT -> val$leftLines.add(string);
             case RIGHT -> val$rightLines.add(string);
@@ -43,7 +43,7 @@ public abstract class DebugScreenOverlayAnon1Mixin implements SidedDebugScreenDi
     }
 
     @WrapMethod(method = "addToGroup(Lnet/minecraft/resources/Identifier;Ljava/lang/String;)V")
-    void addToGroup(Identifier identifier, String string, Operation<Void> original) {
+    private void addToGroup(Identifier identifier, String string, Operation<Void> original) {
         switch (this.side) {
             case LEFT -> val$leftLines.add(string);
             case null, default -> original.call(identifier, string);
@@ -51,7 +51,7 @@ public abstract class DebugScreenOverlayAnon1Mixin implements SidedDebugScreenDi
     }
 
     @WrapMethod(method = "addToGroup(Lnet/minecraft/resources/Identifier;Ljava/util/Collection;)V")
-    void addToGroup(Identifier identifier, Collection<String> collection, Operation<Void> original) {
+    private void addToGroup(Identifier identifier, Collection<String> collection, Operation<Void> original) {
         switch (this.side) {
             case LEFT -> val$leftLines.addAll(collection);
             case null, default -> original.call(identifier, collection);

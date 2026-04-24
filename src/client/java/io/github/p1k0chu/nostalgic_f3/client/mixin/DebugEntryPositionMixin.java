@@ -16,16 +16,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Locale;
 
 @Mixin(DebugEntryPosition.class)
-public class DebugEntryPositionMixin {
+class DebugEntryPositionMixin {
     /// because I got rid of groups, I add newline manually here.
     /// groups are no more, because they are bad (opinionated, there's a group with just two lines)
     @Inject(method = "display", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/debug/DebugScreenDisplayer;addToGroup(Lnet/minecraft/resources/Identifier;Ljava/util/Collection;)V"))
-    void addNewlineBefore(DebugScreenDisplayer debugScreenDisplayer, Level level, LevelChunk levelChunk, LevelChunk levelChunk2, CallbackInfo ci) {
+    private void addNewlineBefore(DebugScreenDisplayer debugScreenDisplayer, Level level, LevelChunk levelChunk, LevelChunk levelChunk2, CallbackInfo ci) {
         debugScreenDisplayer.addLine("");
     }
 
     @WrapOperation(method = "display", at = @At(value = "INVOKE", target = "Ljava/lang/String;format(Ljava/util/Locale;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;", ordinal = 1))
-    String addChunkRelativePos(Locale l, String format, Object[] args, Operation<String> original) {
+    private String addChunkRelativePos(Locale l, String format, Object[] args, Operation<String> original) {
         if (NostalgicF3Config.getInstance().isUseOldSectionRelativePos() && Minecraft.getInstance().getCameraEntity() != null) {
             var blockPos = Minecraft.getInstance().getCameraEntity().blockPosition();
             return String.format(
