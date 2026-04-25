@@ -1,6 +1,12 @@
 package io.github.p1k0chu.bettervanillaf3.client.mixin;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import io.github.p1k0chu.bettervanillaf3.client.BetterVanillaF3Config;
 import io.github.p1k0chu.bettervanillaf3.client.DebugScreenEntriesSides;
 import io.github.p1k0chu.bettervanillaf3.client.SidedDebugScreenDisplayer;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -36,5 +42,18 @@ class DebugScreenOverlayMixin {
             right.addAll(strings);
             right.add("");
         });
+    }
+
+    @Definition(id = "screen", field = "Lnet/minecraft/client/Minecraft;screen:Lnet/minecraft/client/gui/screens/Screen;")
+    @Expression("?.screen != null")
+    @ModifyExpressionValue(
+            method = {
+                    /*$ extractRenderStateStr */"extractRenderState"
+                    /*? <1.21.11 *///, "showDebugScreen"
+            },
+            at = @At("MIXINEXTRAS:EXPRESSION:FIRST")
+    )
+    private boolean hideEvenIfScreenIsOpen(boolean original) {
+        return original && !BetterVanillaF3Config.getInstance().isHideOverlayWhenF1();
     }
 }

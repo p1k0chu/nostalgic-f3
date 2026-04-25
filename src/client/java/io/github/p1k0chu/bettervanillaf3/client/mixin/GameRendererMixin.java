@@ -32,13 +32,10 @@ class GameRendererMixin {
             @Local/*? >=26.1 >>+ ')'*/(name = "graphics") GuiGraphicsExtractor graphics
     ) {
         if (!(this.minecraft.screen instanceof DebugOptionsScreen)) {
-            if (BetterVanillaF3Config.getInstance().isHideOverlayWhenF1() && this.minecraft.options.hideGui) {
-                return;
-            }
-            //? if <26.1 {
-            /*this.minecraft.gui.renderDebugOverlay(graphics);
-            *///? } else
+            //? if >=26.1 {
             this.minecraft.gui.extractDebugOverlay(graphics);
+            //? } else
+            //this.minecraft.gui.renderDebugOverlay(graphics);
         }
     }
 
