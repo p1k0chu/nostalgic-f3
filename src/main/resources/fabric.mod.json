@@ -11,7 +11,7 @@
     "homepage": "https://github.com/p1k0chu/nostalgic-f3",
     "sources": "https://github.com/p1k0chu/nostalgic-f3"
   },
-  "license": "MIT",
+  "license": "LGPL-3.0-or-later",
   "environment": "*",
   "entrypoints": {
     "modmenu": [

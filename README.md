@@ -10,3 +10,8 @@ on), to match earlier versions.
 
 This mod also puts debug overlay rendering behind GUI to match earlier
 behavior, and fixes E counter.
+
+# License
+
+This mod is licensed under LGPL-3.0-or-later (see `LICENSE` file)
+
