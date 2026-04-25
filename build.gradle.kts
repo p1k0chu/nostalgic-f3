@@ -30,9 +30,9 @@ repositories {
 
 dependencies {
     "minecraft"("com.mojang:minecraft:${sc.current.version}")
-    modImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
-    modImplementation("dev.isxander:yet-another-config-lib:${property("yacl_version")}")
-    modImplementation("com.terraformersmc:modmenu:${property("modmenu_version")}")
+    modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric_loader")}")
+    modImplementation("dev.isxander:yet-another-config-lib:${property("deps.yacl")}")
+    modImplementation("com.terraformersmc:modmenu:${property("deps.modmenu")}")
 
     if (obfuscated) {
         "mappings"(loom.officialMojangMappings())
@@ -41,19 +41,19 @@ dependencies {
 
 tasks.processResources {
     inputs.property("mod_version", project.property("mod_version"))
-    inputs.property("minecraft_range", project.property("minecraft_range"))
-    inputs.property("loader_version", project.property("loader_version"))
+    inputs.property("minecraft_version", project.property("fmj.minecraft"))
+    inputs.property("loader_version", project.property("fmj.fabric_loader"))
     inputs.property("java_version", project.property("java_version"))
-    inputs.property("yacl_version", project.property("yacl_version"))
-    inputs.property("modmenu_version", project.property("modmenu_version"))
+    inputs.property("yacl_version", project.property("fmj.yacl_version"))
+    inputs.property("modmenu_version", project.property("fmj.modmenu_version"))
 
     filesMatching("fabric.mod.json") {
         expand(
             "version" to inputs.properties.getValue("mod_version"),
-            "loader_version" to inputs.properties.getValue("loader_version"),
-            "minecraft_range" to inputs.properties.getValue("minecraft_range"),
-            "yacl_version" to inputs.properties.getValue("yacl_version"),
-            "modmenu_version" to inputs.properties.getValue("modmenu_version")
+            "fabric_loader" to inputs.properties.getValue("loader_version"),
+            "minecraft" to inputs.properties.getValue("minecraft_version"),
+            "yacl" to inputs.properties.getValue("yacl_version"),
+            "modmenu" to inputs.properties.getValue("modmenu_version")
         )
     }
 

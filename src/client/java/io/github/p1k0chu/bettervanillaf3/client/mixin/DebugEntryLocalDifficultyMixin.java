@@ -17,7 +17,7 @@ import java.util.Locale;
 class DebugEntryLocalDifficultyMixin {
     //? >=26.1 {
     @WrapOperation(method = "display", at = @At(value = "INVOKE", target = "Ljava/lang/String;format(Ljava/util/Locale;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;"))
-    private String addDayCounter(Locale l, String format, Object[] args, Operation<String> original, @Local /*? >=26.1 >>+')' */(name = "serverLevel") ServerLevel serverLevel) {
+    private String addDayCounter(Locale l, String format, Object[] args, Operation<String> original, @Local(name = "serverLevel") ServerLevel serverLevel) {
         if (BetterVanillaF3Config.getInstance().isAddDayCounterToLocalDifficulty()) {
             String s = original.call(l, format, args);
             var optionalTimeLine = serverLevel.registryAccess().get(Timelines.OVERWORLD_DAY);

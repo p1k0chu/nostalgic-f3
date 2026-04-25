@@ -9,8 +9,8 @@
     "DebugScreenOverlayMixin",
     "GameRendererMixin",
     "GuiProfilerChartRenderStateMixin",
-    "ProfilerPieChartMixin",
-    "LevelRendererMixin"
+    "LevelRendererMixin",
+    "ProfilerPieChartMixin"
   ],
   "injectors": {
     "defaultRequire": 1
